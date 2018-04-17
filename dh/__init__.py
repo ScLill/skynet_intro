@@ -40,7 +40,7 @@ g = 2
 def create_dh_key():
     # Creates a Diffie-Hellman key
     # Returns (public, private)
-    private_key = random.randint(prime)
+    private_key = random.randint(0,prime)
     public_key = pow(g, private_key, prime)
     return (public_key, private_key)
 
@@ -56,3 +56,15 @@ def calculate_dh_secret(their_public, my_private):
     # Feel free to change SHA256 to a different value if more appropriate
     shared_hash = SHA256.new(bytes(str(shared_secret), "ascii")).hexdigest()
     return shared_hash
+
+def test():
+    for _ in range(10):
+        ya, xa = create_dh_key()
+        yb, xb = create_dh_key()
+
+        shared_a = calculate_dh_secret(yb, xa)
+        shared_b = calculate_dh_secret(ya, xb)
+        shared = pow(g, xa * xb, prime)
+        shared_hash = SHA256.new(bytes(str(shared), "ascii")).hexdigest()
+
+        assert shared_a == shared_b == shared_hash, (shared_a, shared_b, shared_hash)
