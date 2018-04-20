@@ -18,8 +18,11 @@ def p2p_upload(fn):
 def p2p_echo():
     try:
         sconn = find_bot()
+        print("#### Found the bot ####")
         # Set verbose to true so we can view the encoded packets
         sconn.verbose = True
+
+        print("#### Found the bot ####")
         sconn.send(bytes("ECHO", "ascii"))
         while 1:
             # Read a message and send it to the other bot
