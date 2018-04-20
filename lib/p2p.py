@@ -28,6 +28,7 @@ def find_bot():
 
 def echo_server(sconn):
     while 1:
+        
         data = sconn.recv()
         print("ECHOING>", data)
         sconn.send(data)
@@ -41,6 +42,7 @@ def accept_connection(conn):
         sconn = StealthConn(conn, server=True)
         # The sender is either going to chat to us or send a file
         cmd = sconn.recv()
+
         if cmd == b'ECHO':
             echo_server(sconn)
         elif cmd == b'FILE':
