@@ -35,12 +35,14 @@ raw_prime = """
 prime = read_hex(raw_prime)
 g = 2
 
+lowerGenBound = prime // 1_000_000_000
+
 # Project TODO: write the appropriate code to perform DH key exchange
 
 def create_dh_key():
     # Creates a Diffie-Hellman key
     # Returns (public, private)
-    private_key = random.randint(0,prime)
+    private_key = random.randint(lowerGenBound, prime-1)
     public_key = pow(g, private_key, prime)
     return (public_key, private_key)
 
